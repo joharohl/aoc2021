@@ -1,35 +1,17 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
+
+	"github.com/joharohl/aoc2021/utils"
 )
-
-func check(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-func readFile(path string) (lines []string) {
-	lines = make([]string, 0, 1000)
-	file, err := os.Open(path)
-	check(err)
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	check(scanner.Err())
-	return
-}
 
 func strToInt(strs []string) (ints []int) {
 	ints = make([]int, 0, len(strs))
 	for _, str := range strs {
 		integer, err := strconv.Atoi(str)
-		check(err)
+		utils.CheckError(err)
 		ints = append(ints, integer)
 	}
 	return
@@ -59,7 +41,7 @@ func countIncreasingValues(ints []int) (count int) {
 }
 
 func main() {
-	measurements := strToInt(readFile("inputs/day1.txt"))
+	measurements := strToInt(utils.ReadFile("inputs/day1.txt"))
 
 	// Find increasing values
 	fmt.Println(countIncreasingValues(measurements))
